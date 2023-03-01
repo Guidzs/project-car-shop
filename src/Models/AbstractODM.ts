@@ -4,7 +4,7 @@ import {
   Schema,
   model,
   isValidObjectId,
-  // UpdateQuery,
+  UpdateQuery,
 } from 'mongoose';
 
 export default class AbstractODM<T> {
@@ -29,5 +29,11 @@ export default class AbstractODM<T> {
   public async findOne(id: string): Promise<T | string | null > {
     if (!isValidObjectId(id)) return 'Invalid mongo id';
     return this.model.findById(id);
+  }
+
+  public async update(id: string, obj: object): Promise<T | string | null> {
+    if (!isValidObjectId(id)) return 'Invalid mongo id';
+    
+    return this.model.findByIdAndUpdate({ _id: id }, { ...obj } as UpdateQuery<T>, { new: true });
   }
 }

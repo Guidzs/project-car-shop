@@ -34,4 +34,15 @@ export default class CarController {
     }
     return this.res.status(status).json(message);
   }
+
+  public async update() {
+    const { id } = this.req.params;
+    const obj = this.req.body;
+
+    const { status, message } = await this.service.update(id, obj);
+    if (typeof message === 'string') {
+      return this.res.status(status).json({ message });
+    }
+    return this.res.status(status).json(message);
+  }
 }

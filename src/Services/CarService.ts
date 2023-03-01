@@ -37,7 +37,27 @@ export default class CarService {
         message: 'Car not found',
       };
     }
+    return {
+      status: 200,
+      message: this.createCarDomain(car),
+    };
+  }
 
+  public async update(id: string, obj: object) {
+    const carODM = new CarODM();
+    const car = await carODM.update(id, obj);
+    if (typeof car === 'string') {
+      return {
+        status: 422,
+        message: car,
+      };
+    }
+    if (!car) {
+      return {
+        status: 404,
+        message: 'Car not found',
+      };
+    }
     return {
       status: 200,
       message: this.createCarDomain(car),
