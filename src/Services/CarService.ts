@@ -15,4 +15,32 @@ export default class CarService {
     const newCar = await carODM.create(car);
     return this.createCarDomain(newCar);
   }
+
+  public async find() {
+    const carODM = new CarODM();
+    const cars = await carODM.find();
+    return cars.map((car) => this.createCarDomain(car));
+  }
+
+  public async findOne(id: string) {
+    const carODM = new CarODM();
+    const car = await carODM.findOne(id);
+    if (typeof car === 'string') {
+      return {
+        status: 422,
+        message: car,
+      };
+    }
+    if (!car) {
+      return {
+        status: 404,
+        message: 'Car not found',
+      };
+    }
+
+    return {
+      status: 200,
+      message: this.createCarDomain(car),
+    };
+  }
 }

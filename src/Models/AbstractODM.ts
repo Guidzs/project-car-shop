@@ -3,7 +3,7 @@ import {
   models,
   Schema,
   model,
-  // isValidObjectId,
+  isValidObjectId,
   // UpdateQuery,
 } from 'mongoose';
 
@@ -20,5 +20,14 @@ export default class AbstractODM<T> {
 
   public async create(obj: T): Promise<T> {
     return this.model.create({ ...obj });
+  }
+
+  public async find(): Promise<T[]> {
+    return this.model.find({});
+  }
+
+  public async findOne(id: string): Promise<T | string | null > {
+    if (!isValidObjectId(id)) return 'Invalid mongo id';
+    return this.model.findById(id);
   }
 }
