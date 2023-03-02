@@ -52,7 +52,7 @@ describe('Testes da rota motorcycles', function () {
     const service = new MotorcycleService();
     const motorcycle = await service.findOne('6348513f34c397abcad040b2');
 
-    expect(motorcycle).to.be.deep.equal(motorcycleOutput);
+    expect(motorcycle.message).to.be.deep.equal(motorcycleOutput);
   });
 
   it('atualiza um carro por id com sucesso', async function () {
@@ -61,7 +61,7 @@ describe('Testes da rota motorcycles', function () {
     const service = new MotorcycleService();
     const motorcycle = await service.update('6348513f34c397abcad040b2', motorcycleInput);
 
-    expect(motorcycle).to.be.deep.equal(motorcycleOutput);
+    expect(motorcycle.message).to.be.deep.equal(motorcycleOutput);
   });
 
   afterEach(function () {

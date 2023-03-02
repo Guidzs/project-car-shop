@@ -52,7 +52,7 @@ describe('Testes da rota cars', function () {
     const service = new CarService();
     const car = await service.findOne('6348513f34c397abcad040b2');
 
-    expect(car).to.be.deep.equal(carOutput);
+    expect(car.message).to.be.deep.equal(carOutput);
   });
 
   it('atualiza um carro por id com sucesso', async function () {
@@ -61,7 +61,7 @@ describe('Testes da rota cars', function () {
     const service = new CarService();
     const car = await service.update('6348513f34c397abcad040b2', carInput);
 
-    expect(car).to.be.deep.equal(carOutput);
+    expect(car.message).to.be.deep.equal(carOutput);
   });
 
   afterEach(function () {
